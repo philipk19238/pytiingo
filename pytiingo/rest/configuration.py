@@ -1,5 +1,9 @@
 import os
+
+from typing import Dict
 from dotenv import load_dotenv, find_dotenv
+from suave.utils import cached_property
+from suave.http.http_client import HttpClient
 
 load_dotenv(find_dotenv())
 
@@ -12,30 +16,31 @@ class Configuration(object):
                  output_format: str = 'json',
                  proxy: Dict = None):
         self._check_init_parameters(token, output_format)
-        self._token = token 
+        self._token = token or os.getenv('TIINGO_API_TOKEN')
         self._proxy = proxy or {}
         self._output_format = output_format
 
     @property 
-    def token(self):
+    def token(self) -> str:
         return self._token 
 
     @property 
-    def proxy(self):
+    def proxy(self) -> Dict:
         return self._proxy 
 
     @property 
-    def output_format(self):
+    def output_format(self) -> str:
         return self._output_format
 
-    @property 
-    def http_client(self):
-        raise NotImplementedError('Property not implemented!')
+    @cached_property 
+    def http_client(self) -> HttpClient:
+        return HttpClient()
 
-    def get_base_uri(self):
+    @property
+    def base_uri(self) -> str:
         return self.TIINGO_BASE
 
-    def _check_init_parameters(self, token: str, output_format: str):
+    def _check_init_parameters(self, token: str, output_format: str) -> None:
         if token is None:
             token = os.getenv('TIINGO_API_TOKEN')
         if not token or not isinstance(token, str):
