@@ -1,7 +1,9 @@
 import requests
 
+from typing import Dict
 from requests import Response
-from suave.http.http_request import HttpRequest
+from pytiingo.rest.http.http_request import HttpRequest
+from pytiingo.rest.http.http_response import HttpResponse
 
 
 class HttpClient(object):
@@ -15,8 +17,8 @@ class HttpClient(object):
             request.query_url,
             headers=request.headers,
             params=request.query_parameters,
-            proxies=request.proxies
-        )
+            proxies=request.proxies)
+
         return self.convert_response(response)
 
     def get(self, query_url: str,

@@ -1,4 +1,6 @@
-from suave.configuration import Configuration
+from typing import Dict
+from pytiingo.rest.configuration import Configuration
+
 
 class Client(object):
 
@@ -6,10 +8,10 @@ class Client(object):
                  output_format: str = 'json',
                  proxy: Dict = None,
                  config: Configuration = None):
-        if config: 
-            self.config = config 
+        if config:
+            self.config = config
         else:
             self.config = Configuration(
-                token, 
+                token,
                 output_format,
                 proxy)
