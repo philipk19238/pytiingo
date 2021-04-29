@@ -27,7 +27,13 @@ class ApiMixin(object):
             return response.to_pandas()
 
     def _clean_query_parameters(self, query_parameters: Dict) -> Dict:
-        return {k: v for k, v in query_parameters.items() if v != None}
+        cleaned = {}
+        for k, v in query_parameters.items():
+            if v:
+                if isinstance(v, list):
+                    v = ','.join(v)
+                cleaned[k] = v
+        return cleaned
 
 
 class BaseApi(ApiMixin):
