@@ -17,7 +17,7 @@ class CryptoApi(base):
 
     @base.format_output
     @base.execute_request
-    def get_price_data(self, tickers: str, **params):
+    def get_prices(self, tickers: str, **params):
         _query_url = '/crypto/prices'
         _query_parameters = {
             'tickers': tickers,
