@@ -11,7 +11,7 @@ class ApiMixin(object):
             query_url,
             query_parameters,
             self.config.headers,
-            self.config.proxies
+            self.config.proxy
         )
         response = self.config.http_client.execute(request)
         return response
@@ -25,6 +25,9 @@ class ApiMixin(object):
             return response.to_json()
         else:
             return response.to_pandas()
+
+    def _clean_query_parameters(self, query_parameters: Dict) -> Dict:
+        return {k: v for k, v in query_parameters.items() if v != None}
 
 
 class BaseApi(ApiMixin):
@@ -49,7 +52,9 @@ class BaseApi(ApiMixin):
         def _execute_request(self, *args, **kwargs):
             query_url, query_parameters = func(self, *args, **kwargs)
             query_url = self.config.base_uri + query_url
+            query_parameters['format'] = 'json' if self.config.output_format == 'json' else 'csv'
             query_parameters['token'] = self.config.token
+            query_parameters = self._clean_query_parameters(query_parameters)
             response = self._execute_request(query_url, query_parameters)
             return response
         return _execute_request

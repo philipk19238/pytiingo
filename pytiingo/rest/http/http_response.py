@@ -10,6 +10,9 @@ from pandas import DataFrame
 
 class HttpResponse(BaseModel):
 
+    class Config:
+        arbitrary_types_allowed = True
+
     status_code: int
     reason_phrase: str
     text: str
@@ -22,4 +25,15 @@ class HttpResponse(BaseModel):
         return json.loads(self.text)
 
     def to_pandas(self) -> DataFrame:
-        return pd.read_csv(StringIO(self.text), sep=',')
+        print(self.text)
+        if self.content_type == 'csv':
+            return pd.read_csv(StringIO(self.text), sep=',')
+        else:
+            return pd.DataFrame.from_dict(self.to_json())
+
+    @property
+    def content_type(self):
+        if self.text.startswith('[') and self.text.endswith(']'):
+            return 'json'
+        else:
+            return 'csv'
