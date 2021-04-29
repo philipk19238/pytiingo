@@ -10,7 +10,7 @@ load_dotenv(find_dotenv())
 
 class Configuration(object):
 
-    TIINGO_BASE = 'https://api.tiingo.com/tiingo'
+    TIINGO_BASE = 'https://api.tiingo.com'
 
     def __init__(self, token: str = None,
                  output_format: str = 'json',
