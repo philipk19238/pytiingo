@@ -149,5 +149,6 @@ Thumbs.db
 # profiling data
 .prof
 
-
+# misc
+Untitled.ipynb
 # End of https://www.toptal.com/developers/gitignore/api/python

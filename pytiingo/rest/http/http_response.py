@@ -25,11 +25,22 @@ class HttpResponse(BaseModel):
         return json.loads(self.text)
 
     def to_pandas(self) -> DataFrame:
-        print(self.text)
         if self.content_type == 'csv':
             return pd.read_csv(StringIO(self.text), sep=',')
         else:
             return pd.DataFrame.from_dict(self.to_json())
+
+    def return_error(self):
+        if self.text: 
+            detail = self.to_json()['detail']
+        else:
+            detail = 'No return given from Api'
+        error_message = f"""
+            Status Code: {self.status_code}\n
+            Reason Phrase: {self.reason_phrase}\n
+            Error Details: {detail}\n
+        """
+        raise ValueError(error_message)
 
     @property
     def content_type(self):

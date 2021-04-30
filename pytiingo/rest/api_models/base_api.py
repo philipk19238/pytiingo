@@ -17,10 +17,8 @@ class ApiMixin(object):
         return response
 
     def _format_output(self, response: HttpResponse) -> Union[List[Dict], DataFrame]:
-        try:
-            assert response.is_success() == True
-        except AssertionError:
-            return response.to_json()
+        if not response.is_success():
+            return response.return_error()
         if self.config.output_format == 'json':
             return response.to_json()
         else:
