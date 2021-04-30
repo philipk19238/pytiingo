@@ -10,7 +10,7 @@ from pytiingo.rest.api_models.iex_api import IEXApi
 from pytiingo.rest.api_models.news_api import NewsApi
 
 
-class Client(object):
+class RESTClient(object):
 
     def __init__(self, token: str = None,
                  output_format: str = 'json',
