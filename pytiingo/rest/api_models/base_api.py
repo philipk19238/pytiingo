@@ -1,7 +1,8 @@
 from typing import Dict, List, Union
+from pandas import DataFrame
+
 from pytiingo.rest.configuration import Configuration
 from pytiingo.rest.http.http_response import HttpResponse
-from pandas import DataFrame
 
 
 class ApiMixin(object):

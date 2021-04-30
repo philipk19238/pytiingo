@@ -12,7 +12,7 @@ from pytiingo.rest.api_models.news_api import NewsApi
 
 class Client(object):
 
-    def __init__(self, token: str,
+    def __init__(self, token: str = None,
                  output_format: str = 'json',
                  proxy: Dict = None,
                  config: Configuration = None):

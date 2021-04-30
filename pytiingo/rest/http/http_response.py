@@ -31,7 +31,7 @@ class HttpResponse(BaseModel):
             return pd.DataFrame.from_dict(self.to_json())
 
     def return_error(self):
-        if self.text: 
+        if self.text:
             detail = self.to_json()['detail']
         else:
             detail = 'No return given from Api'
