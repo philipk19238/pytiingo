@@ -76,7 +76,7 @@ client = RESTClient(token='YOUR_API_TOKEN')
 metrics = client.fundamentals.get_daily_metrics('GOOG')
 ```
 
-### News 
+### News (Premium Endpoint)
 ```python
 from pytiingo import RESTClient
 
