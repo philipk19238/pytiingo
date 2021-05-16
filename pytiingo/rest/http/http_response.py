@@ -38,7 +38,7 @@ class HttpResponse(BaseModel):
         error_message = f"""
             Status Code: {self.status_code}\n
             Reason Phrase: {self.reason_phrase}\n
-            Error Details: {detail}\n
+            Error Details: {detail}
         """
         raise ValueError(error_message)
 

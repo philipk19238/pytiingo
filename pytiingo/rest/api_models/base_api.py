@@ -57,7 +57,10 @@ class BaseApi(ApiMixin):
         def _execute_request(self, *args, **kwargs):
             query_url, query_parameters = func(self, *args, **kwargs)
             query_url = self.config.base_uri + query_url
-            query_parameters['format'] = 'json' if self.config.output_format == 'json' else 'csv'
+            if self.config.output_format == 'pandas':
+                query_parameters['format'] = 'csv'
+            else:
+                query_parameters['format'] = 'json'
             query_parameters['token'] = self.config.token
             query_parameters = self._clean_query_parameters(query_parameters)
             response = self._execute_request(query_url, query_parameters)
